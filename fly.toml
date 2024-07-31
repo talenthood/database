@@ -1,0 +1,31 @@
+# fly.toml app configuration file generated for talenthood-database on 2024-07-31T11:12:27+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'talenthood-database'
+primary_region = 'mad'
+
+[build]
+  image = 'mysql:8'
+
+[[vm]]
+  memory = '2gb'
+  cpu_kind = 'shared'
+  cpus = 1
+
+#[processes]
+#  app = """--datadir /data/mysql \
+#    --default-authentication-plugin mysql_native_password"""
+
+[processes]
+  app = """--datadir /data/mysql_ \
+   --mysql-native-password=ON"""
+
+[mounts]
+  source = "mysqldata"
+  destination = "/data"
+
+[env]
+  MYSQL_DATABASE = "talenthood"
+  MYSQL_USER = "talenthood"
